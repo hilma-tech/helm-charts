@@ -1,0 +1,23 @@
+# Default values for generic-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+projectName: eyal-test
+
+awsRegion: us-east-1
+awsAccountId: "160569206162"
+
+cockroachdb:
+  statefulset:
+    replicas: 3
+
+clients: 
+  - client1 : 
+      serviceType: Y
+      image: X 
+      url: Z
+      configs:
+        - a : b
+        - c : d
+
+servers:
