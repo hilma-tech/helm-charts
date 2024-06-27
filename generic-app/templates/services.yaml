@@ -1,0 +1,18 @@
+{{- range .Values.applications }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}-service
+  namespace: {{ $.Values.projectName }}-{{ $.Values.environment }}
+  labels:
+    {{- include "generic-app.labels" $ | nindent 4 }}
+spec:
+  selector:
+    app: {{ .name }}-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: {{ .name }}-port
+  type: {{ .serviceType | default (ternary $.Values.defaults.client.serviceType $.Values.defaults.server.serviceType (eq .type "client")) }}
+---
+{{- end }}

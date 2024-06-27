@@ -1,0 +1,12 @@
+{{- range .Values.applications }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}-{{ .type }}-cm
+  namespace: {{ $.Values.projectName }}-{{ $.Values.environment }}
+data:
+{{- range $key, $value := .configs }}
+  {{ $key }}: {{ quote $value }}
+{{- end }}
+---
+{{- end }}

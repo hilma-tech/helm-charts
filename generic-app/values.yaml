@@ -1,23 +1,36 @@
-# Default values for generic-app.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+defaults:
+  client:
+    containerPort: 3000
+    serviceType: NodePort
+  server:
+    containerPort: 8080
+    serviceType: ClusterIP
 
 projectName: eyal-test
+environment: dev
 
 awsRegion: us-east-1
 awsAccountId: "160569206162"
 
-cockroachdb:
-  statefulset:
+applications:
+  - name: main
+    type: server
+    serviceType: NodePort
+    route: 
+      enabled: true
+      host: dev.testserver.apps.cluster.carmel6000.org
+      path: /
+    image: 160569206162.dkr.ecr.us-east-1.amazonaws.com/heroes-live-on:8ae38ed9743003d909bdd9b8a5d84fe140daee67
     replicas: 3
-
-clients: 
-  - client1 : 
-      serviceType: Y
-      image: X 
-      url: Z
-      configs:
-        - a : b
-        - c : d
-
-servers:
+    containerPort: 8080
+    configs: 
+       PORT: "8080"
+       CONFIG_ENV: staging
+       NODE_ENV: production
+    secrets: 
+      - name:  global-config
+        path: heroes-live-on/config-global
+      - name:  env-config
+        path: heroes-live-on/config
+      - name: rds-config 
+        path: heroes-live-on/config-rds

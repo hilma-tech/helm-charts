@@ -1,0 +1,35 @@
+{{- range $app := .Values.applications }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $app.name }}-{{ $app.type }}
+  namespace: {{ $.Values.projectName }}-{{ $.Values.environment }}
+  labels:
+    {{- include "generic-app.labels" $ | nindent 4 }}
+spec:
+  replicas: {{ $app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $app.name }}-{{ $app.type }}
+  template:
+    metadata:
+      labels:
+        app: {{ $app.name }}-{{ $app.type }}
+    spec:
+      containers:
+        - name: {{ $app.name }}
+          image: {{ $app.image }}
+          ports:
+            - containerPort: {{ .containerPort | default (ternary $.Values.defaults.client.containerPort $.Values.defaults.server.containerPort (eq .type "client")) }}
+              name: {{ $app.name }}-port
+          envFrom:
+            - configMapRef:
+                name: {{ $app.name }}-{{ $app.type }}-cm
+          {{- range $app.secrets }}
+            - secretRef:
+                name: secretkv-{{ $app.name }}-{{ .name }}
+            {{- end }}           
+      imagePullSecrets:
+        - name: ecr-docker-secret
+---
+{{- end }}

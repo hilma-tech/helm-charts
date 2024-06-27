@@ -1,0 +1,20 @@
+{{- range .Values.applications }}
+{{- if .route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ .name }}-{{ .type }}-route
+  namespace: {{ $.Values.projectName }}-{{ $.Values.environment }}
+spec:
+  host: {{ .route.host }}
+  path: {{ .route.path }}
+  to:
+    kind: Service
+    name: {{ .name }}-service
+  port:
+    targetPort: {{ .containerPort }}
+  tls:
+    termination: edge 
+{{- end }}
+---
+{{- end }}
