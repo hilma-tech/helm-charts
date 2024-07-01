@@ -9,6 +9,6 @@ entries:
     name: generic-app
     type: application
     urls:
-    - https://hilma-tech.github.io/helm-charts/index.yaml/generic-app-0.1.0.tgz
+    - https://hilma-tech.github.io/helm-charts/generic-app-0.1.0.tgz
     version: 0.1.0
 generated: "2024-07-01T13:10:14.851667173+03:00"
