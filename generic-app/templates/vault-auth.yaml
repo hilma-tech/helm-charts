@@ -7,7 +7,7 @@ spec:
   method: kubernetes
   mount: kubernetes 
   kubernetes:
-    role: role1
+    role: secreter
     serviceAccount: default
     audiences:
       - vault

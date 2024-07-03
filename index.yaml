@@ -3,12 +3,12 @@ entries:
   generic-app:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-07-01T13:10:14.852034067+03:00"
+    created: "2024-07-03T17:16:26.169705432+03:00"
     description: A Helm chart for Kubernetes
-    digest: 928b472c18c4d64bc32d92797b68a4ceb9d23e8dc52682ce0c4db1b7fde2fe98
+    digest: 0fd2dcc9e09ef5fccdb5da1127d78f597aa92ae58d37ce36e075a5ca1376eba1
     name: generic-app
     type: application
     urls:
-    - https://hilma-tech.github.io/helm-charts/generic-app-0.1.0.tgz
-    version: 0.1.0
-generated: "2024-07-01T13:10:14.851667173+03:00"
+    - https://hilma-tech.github.io/helm-charts/generic-app-0.1.1.tgz
+    version: 0.1.1
+generated: "2024-07-03T17:16:26.169239233+03:00"
