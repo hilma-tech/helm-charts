@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: {{ $app.name }}
-          image: {{ $app.image }}:{{ $app.imageTag | default .Values.defaults.imageTag }}
+          image: {{ $app.image }}:{{ $app.imageTag | default $.Values.defaults.imageTag }}
           ports:
             - containerPort: {{ .containerPort | default (ternary $.Values.defaults.client.containerPort $.Values.defaults.server.containerPort (eq .type "client")) }}
               name: {{ $app.name }}-port
