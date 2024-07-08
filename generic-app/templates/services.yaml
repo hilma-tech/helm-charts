@@ -8,7 +8,7 @@ metadata:
     {{- include "generic-app.labels" $ | nindent 4 }}
 spec:
   selector:
-    app: {{ .name }}-server
+    app: {{ .name }}-{{ .type }}
   ports:
     - protocol: TCP
       port: 80
