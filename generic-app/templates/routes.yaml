@@ -15,6 +15,10 @@ spec:
     targetPort: {{ .containerPort }}
   tls:
     termination: edge 
+    {{- if .route.certificate.enabled }}
+    key: {{ index (lookup "v1" "Secret" (printf "%s-%s" $.Values.projectName $.Values.environment) .route.certificate.secretName).data "tls.key" | b64dec | quote }}
+    certificate: {{ index (lookup "v1" "Secret" (printf "%s-%s" $.Values.projectName $.Values.environment) .route.certificate.secretName).data "tls.cert" | b64dec | quote }}
+    {{ - end}}
 {{- end }}
 ---
 {{- end }}
