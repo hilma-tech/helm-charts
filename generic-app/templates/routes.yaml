@@ -10,15 +10,18 @@ spec:
   path: {{ .route.path }}
   to:
     kind: Service
-    name: {{ .name }}-service
+    name: {{ .name }}-{{ .type }}-service
   port:
     targetPort: {{ .containerPort }}
   tls:
     termination: edge 
-    {{- if .route.certificate.enabled }}
-    key: {{ index (lookup "v1" "Secret" cert-manager .route.certificate.secretName).data "tls.key" b64dec | quote }}
-    certificate: {{ index (lookup "v1" "Secret" cert-manager .route.certificate.secretName).data "tls.cert" | b64dec | quote }}
-    {{ - end}}
-{{- end }}
+    {{- /*
+         Lookups are a GitOps anti-pattern, i will need to find a workaround
+         {{- if .route.certificate.enabled }}
+         key: {{ index (lookup "v1" "Secret" "cert-manager" .route.certificate.secretName).data "tls.key" b64dec | quote }}
+         certificate: {{ index (lookup "v1" "Secret" "cert-manager" .route.certificate.secretName).data "tls.cert" | b64dec | quote }}
+         {{- end}}
+    */}}
+  {{- end }}
 ---
 {{- end }}

@@ -16,6 +16,9 @@ spec:
       labels:
         app: {{ $app.name }}-{{ $app.type }}
     spec:
+      {{- if eq $app.type "client" }}
+      serviceAccountName: my-privileged-sa
+      {{- end }}
       containers:
         - name: {{ $app.name }}
         {{- if eq $app.type "client" }}
