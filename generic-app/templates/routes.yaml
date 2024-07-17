@@ -5,6 +5,8 @@ kind: Route
 metadata:
   name: {{ .name }}-{{ .type }}-route
   namespace: {{ $.Values.projectName }}-{{ $.Values.environment }}
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   host: {{ .route.host }}
   path: {{ .route.path }}
